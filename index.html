@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Amir Azam Rajabian — M.Sc. student in Electrical Engineering at KIT, specialising in power electronics, gate driver circuits, and Hardware-in-the-Loop systems." />
+  <title>Amir Azam Rajabian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─────────── THEME TOKENS ─────────── */
+    :root {
+      --bg:          #0f1117;
+      --surface:     #161b27;
+      --card:        #1e2535;
+      --border:      #2a3348;
+      --accent:      #4f8ef7;
+      --accent2:     #7ec8e3;
+      --text:        #e2e8f0;
+      --muted:       #8896a7;
+      --tag-bg:      #1a2a44;
+      --tag-text:    #7ec8e3;
+      --badge-bg:    rgba(79,142,247,0.12);
+      --badge-bdr:   rgba(79,142,247,0.30);
+      --nav-bg:      rgba(15,17,23,0.88);
+      --shadow:      0 4px 24px rgba(0,0,0,0.35);
+      --logo-bg:     #ffffff;
+      --logo-bdr:    rgba(255,255,255,0.10);
+    }
+    [data-theme="light"] {
+      --bg:          #f4f6fb;
+      --surface:     #eef1f8;
+      --card:        #ffffff;
+      --border:      #dde3ef;
+      --accent:      #2563eb;
+      --accent2:     #0891b2;
+      --text:        #1e293b;
+      --muted:       #64748b;
+      --tag-bg:      #eff6ff;
+      --tag-text:    #2563eb;
+      --badge-bg:    rgba(37,99,235,0.08);
+      --badge-bdr:   rgba(37,99,235,0.25);
+      --nav-bg:      rgba(244,246,251,0.90);
+      --shadow:      0 4px 24px rgba(0,0,0,0.08);
+      --logo-bg:     #ffffff;
+      --logo-bdr:    rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    /* ─────────── LAYOUT ─────────── */
+    .page-wrapper { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 15px; color: var(--accent);
+      letter-spacing: 0.02em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 12px;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* theme toggle */
+    .theme-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      cursor: pointer; color: var(--muted); transition: all 0.2s;
+    }
+    .theme-btn:hover { background: var(--card); color: var(--text); }
+    .icon-sun  { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="light"] .icon-sun  { display: block; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      padding: 72px 0 56px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 48px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 12px; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 5.5vw, 46px); font-weight: 700;
+      line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .spec-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--badge-bg); border: 1px solid var(--badge-bdr);
+      color: var(--accent); border-radius: 20px;
+      padding: 5px 14px; font-size: 13px; font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-size: 15px; color: var(--muted);
+      max-width: 520px; margin-bottom: 24px; line-height: 1.75;
+    }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+    .meta-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--muted);
+    }
+    .meta-item a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .meta-item a:hover { color: var(--accent); }
+
+    /* CTA buttons */
+    .cta-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--card); border-color: var(--muted); transform: translateY(-1px); }
+
+    /* academic profile links */
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .plink {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 6px; font-size: 12px; font-weight: 500;
+      text-decoration: none; color: var(--muted);
+      border: 1px solid var(--border); background: var(--card);
+      transition: all 0.2s;
+    }
+    .plink:hover { color: var(--text); transform: translateY(-1px); box-shadow: var(--shadow); }
+    .plink .pdot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .plink.scholar:hover { border-color: #4285F4; color: #4285F4; }
+    .plink.rg:hover      { border-color: #00CCBB; color: #00CCBB; }
+    .plink.ieee:hover    { border-color: #00629B; color: #00629B; }
+    .plink.orcid:hover   { border-color: #A6CE39; color: #A6CE39; }
+    .scholar .pdot { background: #4285F4; }
+    .rg      .pdot { background: #00CCBB; }
+    .ieee    .pdot { background: #00629B; }
+    .orcid   .pdot { background: #A6CE39; }
+
+    /* avatar */
+    .avatar-wrap {
+      width: 155px; height: 155px; border-radius: 50%;
+      border: 3px solid var(--accent); overflow: hidden; flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─────────── SECTIONS ─────────── */
+    section { padding: 56px 0 0; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 26px;
+    }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .section-title { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ─────────── CARDS ─────────── */
+    .timeline { display: flex; flex-direction: column; gap: 14px; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px 24px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--accent); transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;
+    }
+    .card-title-row { display: flex; align-items: center; gap: 12px; }
+    .card-title { font-size: 16px; font-weight: 600; }
+    .card-date {
+      font-size: 12px; font-weight: 500; color: var(--accent);
+      background: var(--tag-bg); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace; flex-shrink: 0;
+    }
+    .card-subtitle { font-size: 14px; color: var(--accent2); font-weight: 500; margin-bottom: 10px; }
+    .card-body { font-size: 14px; color: var(--muted); }
+    .card-highlight {
+      font-size: 13px; color: var(--muted); font-style: italic;
+      margin-bottom: 10px; padding: 8px 10px;
+      border-left: 2px solid var(--accent);
+      background: var(--tag-bg); border-radius: 0 6px 6px 0;
+    }
+    .card ul { margin-top: 10px; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
+    .card li { font-size: 14px; color: var(--muted); }
+    .card li::marker { color: var(--accent); }
+
+    /* ─────────── LOGO BOX ─────────── */
+    /* White container so every logo is readable in both themes */
+    .logo-box {
+      background: var(--logo-bg);
+      border: 1px solid var(--logo-bdr);
+      border-radius: 8px;
+      height: 40px; min-width: 40px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px 8px; flex-shrink: 0; overflow: hidden;
+    }
+    .logo-box img { height: 28px; width: auto; max-width: 72px; object-fit: contain; }
+    /* KIT inline SVG logo — no box needed, theme-aware green */
+    .kit-svg { height: 40px; width: 80px; flex-shrink: 0; display: block; overflow: visible; }
+    /* Faratel custom badge */
+    .faratel-badge {
+      height: 40px; width: 68px; flex-shrink: 0;
+    }
+    /* ETI logo box wider for horizontal logo */
+    .logo-box-wide {
+      background: var(--logo-bg);
+      border: 1px solid var(--logo-bdr);
+      border-radius: 8px;
+      height: 40px; width: 80px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px 8px; flex-shrink: 0; overflow: hidden;
+    }
+    .logo-box-wide img { height: 28px; width: auto; max-width: 72px; object-fit: contain; }
+
+    /* ─────────── PUBLICATIONS ─────────── */
+    .pub-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 12px;
+    }
+    .pub-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+    .pub-tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .pub-journal { background: rgba(79,142,247,0.12); color: var(--accent); border: 1px solid rgba(79,142,247,0.30); }
+    .pub-conf    { background: rgba(126,200,227,0.10); color: var(--accent2); border: 1px solid rgba(126,200,227,0.22); }
+    [data-theme="light"] .pub-journal { background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.22); }
+    [data-theme="light"] .pub-conf    { background: rgba(8,145,178,0.08);  border-color: rgba(8,145,178,0.22); }
+    .pub-title   { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+    .pub-authors { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .pub-venue   { font-size: 13px; color: var(--muted); font-style: italic; }
+    .pub-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 10px; font-size: 12px; color: var(--accent);
+      text-decoration: none; font-weight: 600; transition: color 0.2s;
+    }
+    .pub-link:hover { color: var(--text); }
+
+    /* ─────────── SKILLS ─────────── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 14px;
+    }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+    .skill-group:hover { border-color: var(--accent); }
+    .skill-group-title {
+      font-size: 12px; font-weight: 700; color: var(--accent);
+      letter-spacing: 0.07em; text-transform: uppercase;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      background: var(--tag-bg); color: var(--tag-text);
+      border: 1px solid rgba(126,200,227,0.18);
+      padding: 4px 11px; border-radius: 6px;
+      font-size: 12px; font-weight: 500;
+    }
+    [data-theme="light"] .tag { border-color: rgba(37,99,235,0.15); }
+
+    /* ─────────── FOOTER ─────────── */
+    footer {
+      margin-top: 80px; padding: 28px 0;
+      border-top: 1px solid var(--border);
+      text-align: center; font-size: 13px; color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; gap: 28px; padding: 48px 0 36px; }
+      .avatar-wrap { width: 110px; height: 110px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">AAR</a>
+    <ul class="nav-links">
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li>
+        <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <div>
+      <p class="hero-eyebrow">M.Sc. Student · Karlsruhe Institute of Technology</p>
+      <h1>Amir<br>Azam Rajabian</h1>
+
+      <div class="spec-badge">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Power Electronics
+      </div>
+
+      <p class="hero-subtitle">
+        Electrical engineering graduate student at KIT with experience in gate driver circuits, power electronics hardware, PCB design, and Hardware-in-the-Loop systems. IEEE-published on Si-IGBT crosstalk characterisation.
+      </p>
+
+      <div class="hero-meta">
+        <span class="meta-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Karlsruhe, Germany
+        </span>
+        <span class="meta-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:amir.azamrajabian@student.kit.edu">amir.azamrajabian@student.kit.edu</a>
+        </span>
+        <span class="meta-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a2 2 0 011.72-2.18h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 15.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 22z"/></svg>
+          (+49) 176 71290471
+        </span>
+      </div>
+
+      <div class="cta-group">
+        <a href="https://www.linkedin.com/in/amir-rajabian" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 110-4.124 2.062 2.062 0 010 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/amir-azamrajabian" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+
+      <!-- Academic profiles -->
+      <div class="profile-links">
+        <a href="https://scholar.google.com/citations?user=-kcZ-WgAAAAJ&hl=en" target="_blank" rel="noopener" class="plink scholar">
+          <span class="pdot"></span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://www.researchgate.net/profile/Amir-Azam-Rajabian" target="_blank" rel="noopener" class="plink rg">
+          <span class="pdot"></span>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 0H4.41A4.41 4.41 0 000 4.41v15.18A4.41 4.41 0 004.41 24h15.18A4.41 4.41 0 0024 19.59V4.41A4.41 4.41 0 0019.59 0zM9.5 16.5H7.75V9.25H9.5V16.5zm.25-9a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0zm7.5 9h-1.75v-3.5c0-.97-.78-1.75-1.75-1.75s-1.75.78-1.75 1.75v3.5H10.25V9.25H12v.97a3.25 3.25 0 015.25 2.53V16.5z"/></svg>
+          ResearchGate
+        </a>
+        <a href="https://ieeexplore.ieee.org/author/37089378398" target="_blank" rel="noopener" class="plink ieee">
+          <span class="pdot"></span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+          IEEE Xplore
+        </a>
+        <a href="https://orcid.org/0000-0001-5043-0939" target="_blank" rel="noopener" class="plink orcid">
+          <span class="pdot"></span>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-1.84 18.32H8.62V9.25h1.54v9.07zM9.4 8.1a.97.97 0 110-1.94.97.97 0 010 1.94zm8.6 10.22h-1.54v-4.6c0-1.1-.39-1.85-1.37-1.85-.75 0-1.19.5-1.39.99-.07.17-.09.41-.09.65v4.81h-1.54V9.25h1.54v1.29c.41-.62 1.04-1.51 2.53-1.51 1.85 0 3.23 1.21 3.23 3.8v5.49z"/></svg>
+          ORCID
+        </a>
+      </div>
+    </div>
+
+    <div class="avatar-wrap">
+      <img src="https://avatars.githubusercontent.com/u/96968590?v=4" alt="Amir Azam Rajabian" loading="lazy" />
+    </div>
+  </header>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <!-- KIT -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <!-- KIT official green SVG wordmark, theme-aware subtitle -->
+            <svg class="kit-svg" viewBox="0 0 90 42" xmlns="http://www.w3.org/2000/svg">
+              <text x="2" y="34" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="36" fill="#009682">KIT</text>
+              <text x="2" y="41" font-family="Arial,sans-serif" font-size="7.5" fill="var(--muted)" letter-spacing="0.01em">Karlsruhe Institute of Technology</text>
+            </svg>
+            <div class="card-title">Karlsruhe Institute of Technology</div>
+          </div>
+          <span class="card-date">04/2024 – Present</span>
+        </div>
+        <div class="card-subtitle">M.Sc. in Electrical Engineering and Information Technology</div>
+        <div class="card-body">Karlsruhe, Germany &nbsp;·&nbsp; <span style="color:var(--accent2);font-weight:500">Focus: Power Electronics</span></div>
+      </div>
+
+      <!-- KNTU -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="logo-box">
+              <img src="KNTU1.png" alt="K. N. Toosi University of Technology" loading="lazy" />
+            </div>
+            <div class="card-title">K. N. Toosi University of Technology</div>
+          </div>
+          <span class="card-date">09/2018 – 02/2023</span>
+        </div>
+        <div class="card-subtitle">B.Sc. in Electrical Engineering</div>
+        <div class="card-body">Tehran, Iran &nbsp;·&nbsp; <em>Thesis: Design and Implementation of a Gate-Driver System to Mitigate the Effect of Short-Circuit Current</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── WORK EXPERIENCE ── -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <!-- PE-Systems -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="logo-box-wide">
+              <img src="https://www.pe-systems.de/static/img/logo.svg"
+                   alt="PE-Systems GmbH"
+                   loading="lazy"
+                   onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:11px;font-weight:700;color:#444;\'>PE-Systems</span>'" />
+            </div>
+            <div class="card-title">PE-Systems GmbH</div>
+          </div>
+          <span class="card-date">07/2025 – Present</span>
+        </div>
+        <div class="card-subtitle">Working Student — Power Electronics Hardware &amp; Software · Darmstadt, Germany</div>
+        <ul>
+          <li>Testing and characterisation of gate driver boards under switching conditions</li>
+          <li>Contributed to the design of an impedance converter for improved signal stability</li>
+          <li>Implemented parts of an Ethernet interface using a Microchip microcontroller and MPLAB</li>
+          <li>Supported integration of hardware and embedded software components</li>
+        </ul>
+      </div>
+
+      <!-- ETI – HIL Wind Turbine -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="logo-box-wide">
+              <img src="eti-logo.png" alt="Elektrotechnisches Institut – KIT" loading="lazy" />
+            </div>
+            <div class="card-title">Elektrotechnisches Institut (ETI) – KIT</div>
+          </div>
+          <span class="card-date">10/2024 – 09/2025</span>
+        </div>
+        <div class="card-subtitle">Student Research Assistant · Karlsruhe, Germany</div>
+        <div class="card-highlight">Project: HIL System for Control of a Midspeed Wind Turbine Generator with Superconducting Rotor Winding</div>
+        <ul>
+          <li>Literature review on HIL systems and wind turbine control strategies</li>
+          <li>Grid-side control modelling in Simulink</li>
+          <li>Implemented an Enhanced Phase-Locked Loop (EPLL) and evaluated its performance under various conditions</li>
+          <li>Supported simulation and experimental validation activities</li>
+        </ul>
+      </div>
+
+      <!-- KIT Steel & Lightweight -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <svg class="kit-svg" viewBox="0 0 90 42" xmlns="http://www.w3.org/2000/svg">
+              <text x="2" y="34" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="36" fill="#009682">KIT</text>
+              <text x="2" y="41" font-family="Arial,sans-serif" font-size="7.5" fill="var(--muted)" letter-spacing="0.01em">Karlsruhe Institute of Technology</text>
+            </svg>
+            <div class="card-title">KIT – Steel and Lightweight Structures</div>
+          </div>
+          <span class="card-date">07/2024 – 06/2025</span>
+        </div>
+        <div class="card-subtitle">Student Research Assistant · Karlsruhe, Germany</div>
+        <ul>
+          <li>Designed and tested a half-bridge circuit for structural monitoring applications</li>
+          <li>Implemented control logic using VHDL</li>
+          <li>Applied frequency sweep methods for signal-based crack detection</li>
+          <li>Assisted in experimental setup and measurements</li>
+        </ul>
+      </div>
+
+      <!-- ETI – DC/DC Converter -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="logo-box-wide">
+              <img src="eti-logo.png" alt="Elektrotechnisches Institut – KIT" loading="lazy" />
+            </div>
+            <div class="card-title">Elektrotechnisches Institut (ETI) – KIT</div>
+          </div>
+          <span class="card-date">07/2024 – 09/2024</span>
+        </div>
+        <div class="card-subtitle">Student Research Assistant · Karlsruhe, Germany</div>
+        <div class="card-highlight">Project: Construction, Commissioning, and Control of a DC/DC Converter for Connecting a Fuel Cell to a DC Microgrid</div>
+        <ul>
+          <li>Assisted in the construction and finalisation of a power electronics cabinet for a DC/DC converter system</li>
+          <li>Hands-on experience with laboratory setup, wiring, and system validation</li>
+        </ul>
+      </div>
+
+      <!-- Faratel -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <!-- Faratel: clean monogram badge -->
+            <svg class="faratel-badge" viewBox="0 0 68 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="68" height="40" rx="8" fill="#0e2d6b"/>
+              <text x="34" y="15.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8.5" fill="#7ec8e3" letter-spacing="1.5">FARATEL</text>
+              <line x1="10" y1="20" x2="58" y2="20" stroke="#7ec8e3" stroke-width="0.6" opacity="0.4"/>
+              <text x="34" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#a0b4cc" letter-spacing="0.5">تهران · Tehran</text>
+            </svg>
+            <div class="card-title">Faratel</div>
+          </div>
+          <span class="card-date">06/2021 – 09/2021</span>
+        </div>
+        <div class="card-subtitle">R&amp;D Intern · Tehran, Iran</div>
+        <ul>
+          <li>Testing of auto-transformers under thermal and load conditions</li>
+          <li>Quality evaluation of electronic components</li>
+          <li>Supported development activities for voltage stabilisers</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── RESEARCH ── -->
+  <section id="research">
+    <div class="section-header">
+      <span class="section-label">03</span>
+      <h2 class="section-title">Research</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="logo-box">
+              <img src="KNTU1.png" alt="K. N. Toosi University of Technology" loading="lazy" />
+            </div>
+            <div class="card-title">K. N. Toosi University of Technology</div>
+          </div>
+          <span class="card-date">09/2021 – 03/2024</span>
+        </div>
+        <div class="card-subtitle">Undergraduate Research Assistant · Tehran, Iran</div>
+        <div class="card-highlight">Topic: In-depth Characterisation of Si-IGBT Crosstalk — Emphasising Power Circuit Parasitic Elements through a Comprehensive Modelling Approach</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <span class="tag" style="background:rgba(79,142,247,0.10);color:var(--accent);border-color:rgba(79,142,247,0.25);">🏆 Best Undergraduate Thesis – KNTU</span>
+          <span class="tag" style="background:rgba(79,142,247,0.10);color:var(--accent);border-color:rgba(79,142,247,0.25);">4 IEEE publications</span>
+          <a href="https://github.com/amir-azamrajabian/crosstalk-model" target="_blank" rel="noopener"
+             class="tag" style="background:rgba(126,200,227,0.10);color:var(--accent2);border-color:rgba(126,200,227,0.25);text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer;">
+            <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            crosstalk-model
+          </a>
+        </div>
+        <ul>
+          <li>Developed simulation and analytical models to investigate Si-IGBT crosstalk behaviour</li>
+          <li>Used MATLAB, PSPICE, and a custom hardware test bench to evaluate the impact of parasitic elements</li>
+          <li>Systematic experiments characterising shoot-through currents and switching transients under various load conditions</li>
+          <li>Designed and fabricated PCBs in Altium Designer for experimental verification and data acquisition</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ── -->
+  <section id="publications">
+    <div class="section-header">
+      <span class="section-label">04</span>
+      <h2 class="section-title">Publications</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pub-card">
+      <span class="pub-tag pub-journal">IEEE Journal</span>
+      <div class="pub-title">Interrelation of Gate Resistance and Emitter/Source Inductance Impact on Inductive Load Phase-Leg Crosstalk</div>
+      <div class="pub-authors"><strong>A. Azam Rajabian</strong> and S. Mohsenzade</div>
+      <div class="pub-venue">IEEE Journal of Emerging and Selected Topics in Industrial Electronics, 2024</div>
+      <a href="https://ieeexplore.ieee.org/document/10709337" target="_blank" rel="noopener" class="pub-link">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        10.1109/JESTIE.2024.3476274
+      </a>
+    </div>
+
+    <div class="pub-card">
+      <span class="pub-tag pub-conf">IEEE Conference</span>
+      <div class="pub-title">Investigating the Effect of the Power Path Parasitic Inductance on Si-IGBT Crosstalk Using a Comprehensive Model</div>
+      <div class="pub-authors"><strong>A. Azam Rajabian</strong> and S. Mohsenzade</div>
+      <div class="pub-venue">13th Power Electronics, Drive Systems, and Technologies Conference (PEDSTC), 2022, pp. 414–419</div>
+      <a href="https://ieeexplore.ieee.org/document/9767324" target="_blank" rel="noopener" class="pub-link">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        10.1109/PEDSTC53976.2022.9767324
+      </a>
+    </div>
+
+    <div class="pub-card">
+      <span class="pub-tag pub-conf">IEEE Conference</span>
+      <div class="pub-title">Characterisation of Si-IGBT Crosstalk with a Concentration on Power Circuit Parasitic Elements and the Device Operation Point</div>
+      <div class="pub-authors"><strong>A. Azam Rajabian</strong>, S. Mohsenzade, J. Naghibi, and K. Mehran</div>
+      <div class="pub-venue">24th European Conference on Power Electronics and Applications (EPE'22 ECCE Europe), 2022, pp. 1–10</div>
+      <a href="https://ieeexplore.ieee.org/document/9907736" target="_blank" rel="noopener" class="pub-link">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View on IEEE Xplore
+      </a>
+    </div>
+
+    <div class="pub-card">
+      <span class="pub-tag pub-conf">IEEE Conference</span>
+      <div class="pub-title">On the Effect of Parasitic Capacitances on the Voltage Sharing of Series-Connected Diodes</div>
+      <div class="pub-authors">A. Ghaderi, <strong>A. Azam Rajabian</strong> and S. Mohsenzade</div>
+      <div class="pub-venue">14th Power Electronics, Drive Systems, and Technologies Conference (PEDSTC), Babol, Iran, 2023, pp. 1–5</div>
+      <a href="https://ieeexplore.ieee.org/document/10087154" target="_blank" rel="noopener" class="pub-link">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        10.1109/PEDSTC57673.2023.10087154
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-label">05</span>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Power Electronics &amp; Hardware
+        </div>
+        <div class="tags">
+          <span class="tag">Gate Driver Design</span>
+          <span class="tag">PCB Design</span>
+          <span class="tag">Altium Designer</span>
+          <span class="tag">KiCad</span>
+          <span class="tag">Half-Bridge Circuits</span>
+          <span class="tag">Measurement &amp; Testing</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Simulation &amp; Tools
+        </div>
+        <div class="tags">
+          <span class="tag">MATLAB/Simulink</span>
+          <span class="tag">PSPICE</span>
+          <span class="tag">LTSPICE</span>
+          <span class="tag">ANSYS Maxwell</span>
+          <span class="tag">RT-Lab (HIL)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Programming &amp; Embedded
+        </div>
+        <div class="tags">
+          <span class="tag">VHDL</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">MPLAB</span>
+          <span class="tag">Microcontroller Dev</span>
+          <span class="tag">Ethernet Interface</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Languages
+        </div>
+        <div class="tags">
+          <span class="tag">Persian (Native)</span>
+          <span class="tag">English (C1)</span>
+          <span class="tag">German (B1)</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /page-wrapper -->
+
+<footer>
+  <p>
+    Amir Azam Rajabian &nbsp;·&nbsp;
+    <a href="mailto:amir.azamrajabian@student.kit.edu">amir.azamrajabian@student.kit.edu</a> &nbsp;·&nbsp;
+    <a href="https://github.com/amir-azamrajabian" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/amir-rajabian" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://orcid.org/0000-0001-5043-0939" target="_blank" rel="noopener">ORCID</a>
+  </p>
+</footer>
+
+<script>
+  // Restore saved theme before paint to avoid flash
+  (function () {
+    var saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
+
+</body>
+</html>
